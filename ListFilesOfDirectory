@@ -1,0 +1,18 @@
+Controller Method to list files of a directory - CI4:
+public function media_list()
+	{
+		$returnArr['status'] = '0';
+		$returnArr['response'] = lang('Common.could_not_validate');
+
+		if ($this->checkSession('A') == '') {
+			$returnArr['status'] = '00';
+			$returnArr['response'] = 'Session has been timed out, Please login again and try.';
+			echo 'pls login';
+			die;
+			return redirect()->to(ADMIN_PATH . '/login');
+		} else {
+			helper('filesystem');
+			$this->data['arrFiles']	 = directory_map('./uploads/d/icons/thumb');
+			echo view(ADMIN_PATH . '/widgets/media-gallery', $this->data);
+		}
+}
